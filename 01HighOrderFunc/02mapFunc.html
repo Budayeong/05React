@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*
+        map() 함수
+        - 콜백함수를 실행한 결과를 통해 새로운 배열을 만들 때 사용.
+        - 나머지 사용법은 forEach()와 동일
+        - 호출한 배열의 크기가 N이라면 N개의 인자 전체가 반환됨.
+        */
+        function mapTest1(){
+            console.error("mapTest() called.. 기본 사용법");
+            var oldArray = [1,2,3,4,5];
+            var newArray  = oldArray.map(
+                // 콜백함수의 매개변수는 순서대로 현재값, 인덱스, 호출한 배열을 받을 수 있음
+                function(currentVal, index, array){
+                    console.log(currentVal, index, array);
+                    // 현재 루프의 각 원소에 2를 곱한 결과를 반환
+                    return currentVal *2;
+                });
+            // 콜백함수의 반환값이 순서대로 새로운 배열에 저장됨
+            console.log(newArray);
+        }
+
+        function mapTest2() {
+            console.error("mapTest2() called..JSON 객체 배열 활용하기");
+            // 객체를 원소로 가진 객체(DTO와 유사)형 배열 선언
+            var oldJSON = [
+                { name: "이건",  salary : 5000000},
+                { name: "홍길동",  salary : 1000000},
+                { name: "임신구",  salary : 3000000},
+                { name: "이승룡",  salary : 2000000}
+            ];
+            var newJson = oldJSON.map(function(currentVal){
+                // 빈 객체 생성
+                var returnObj = {}
+                // 각 루프에서 반환하는 객체의 name과 salary를 이용해서 새로운 객체 생성
+                returnObj[currentVal.name] = currentVal.salary;
+                // 해당 객체는 {'이건':5000000} 와 같이 생성됨
+                return returnObj;
+            });
+            console.log(newJson);
+        }
+
+        function mapTest3(){
+            console.error("mapTest2() called. 화살표 함수 사용하기");
+            var oldArray = [1,2,3,4,5];
+            // 현재 루프의 요소를 제곱한 결과를 반환해 새로운 배열로 생성
+            var newArray = oldArray.map((num) => {
+                return Math.pow(num, 2);
+            });
+            console.log(newArray);
+        }
+    </script>
+</head>
+<body>
+    <h3>고차 함수 - map()</h3>
+    <div>
+        <input type="button" onclick="mapTest1();" value="map1">
+        <input type="button" onclick="mapTest2();" value="map2">
+        <input type="button" onclick="mapTest3();" value="map3">
+    </div>
+</body>
+</html>

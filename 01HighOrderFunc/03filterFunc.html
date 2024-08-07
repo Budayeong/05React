@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        /*
+        filter() 함수
+        -filter라는 명칭과 같이 콜백함수의 조건에 해당하는 원소만 반환하여 새로운 배열을 만들때 사용
+        - map()과 형식은 동일하고, 반환값에 대한 차이만 있음
+        */
+        function filterTest1(){
+            console.error("filterTest1() called.. 조건에 맞는 엘리먼트만 추출");
+            var oldArray = [1,2,3,4,5];
+            var newArray = oldArray.filter(function(currentVal){
+                console.log("현재원소 ", currentVal);
+                /* map()과 동일하게 배열의 크기만큼 반복하지만, 3이하인 값만 반환해
+                새로운 배열에 저장 */
+                return currentVal<=3;
+            });
+            console.log(newArray);
+        }
+
+        function filterTest2(){
+            console.error("filterTest2() called..JSON 객체형배열 사용 및 검색");
+            // 객체형 배열 선언
+            var oldJsonArray = [
+                {name: "혜빈", salary : 100000},
+                {name: "제인", salary : 200000},
+                {name: "나윤", salary : 300000},
+                {name: "주이", salary : 400000},
+                {name: "아인", salary : 500000},
+                {name: "낸시", salary : 600000}
+            ];
+            // 급여가 30만 이상인 객체만 추출해 반환. 
+            // 반환된 값은 새로운 배열에 추가됨
+            var newJsonArray = oldJsonArray.filter(function(currentVal){
+                return currentVal.salary>=300000;
+            }, undefined);
+            // thisArgs는 필요없는 경우 생략 가능
+            console.log(newJsonArray);
+        }
+
+        function filterTest3(){
+            console.error("filterTest3() called..thisArgs 매개변수 사용하기");
+            var oldArray = [1,2,3,4,5,50,100];
+            // 콜백함수에서 사용할 인자(객체형) 생성
+            var thisArgs = {min:1, max:10};
+            
+            // 콜백함수정의. 1~10 사이의 값만 반환하여 새로운 배열
+            function getMinMax(value){
+                return value>=this.min && value<=this.max;
+            }
+            var newArray = oldArray.filter(getMinMax, thisArgs);
+            console.log('thisArgs사용결과', newArray)
+        }
+    </script>
+</head>
+<body>
+    <h3>고차 함수 - filter()</h3>
+    <div>
+        <input type="button" onclick="filterTest1();" value="filter1">
+        <input type="button" onclick="filterTest2();" value="filter2">
+        <input type="button" onclick="filterTest3();" value="filter3">
+    </div>
+</body>
+</html>

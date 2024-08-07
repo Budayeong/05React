@@ -1,19 +1,26 @@
 import './App.css';
 import { firestore } from './firestoreConfig';
-import { collection, getDoc, getDocs } from "firebase/firestore";
+// 컬렉션과 도큐먼트를 얻어오기 윟나 함수 임포트
+import { collection, getDocs } from "firebase/firestore";
 import { useState} from 'react';
 
 
 function App() {
-
+  // 데이터를 저장할 State 생성
   const [showData, setShowData ]  = useState([]);
 
+  // 컬렉션 정보 조회
   const getCollection = async () => {
-
     let trArray = [];
+    // 컬렉션명으로 저장된 하위 도큐먼트를 얻어온다.
     const querySnapshot = await getDocs(collection(firestore, "members"));
+    // 도큐먼트의 개수만큼 반복한다.
     querySnapshot.forEach((doc)=>{
+      // console.log(doc.id, "=>", doc.data());
+      // 도큐먼트를 하나씩 인출
       let memberInfo = doc.data();
+      // console.log("파싱", doc.id, memberInfo.pass, memberInfo.name, memberInfo.regdate);
+      // <tr>태그로 구성해 배열에 저장
       trArray.push (
         <tr key={doc.id}>
           <td className='cen'>{doc.id}</td>
@@ -23,6 +30,7 @@ function App() {
         </tr>
       );
     });
+    // 파싱된 데이터를 통해 State를 변경하고 새롭게 렌더링
     setShowData(trArray);
   }
   

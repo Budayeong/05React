@@ -1,0 +1,9 @@
+/* 스크롤바 */
+#chatWindow{
+	overflow:scroll; padding:5px; margin-bottom: 10px; overflow-x:hidden;
+}
+
+#chat2 .form-control:focus {
+border-color: transparent;
+box-shadow: inset 0px 0px 0px 1px transparent;
+}
